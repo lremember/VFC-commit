@@ -1,0 +1,4024 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ONAP VFC NSLCM SOL005 API",
+    "description": "VFC Network Service Lifecycle Management SOL005 Rest API.",
+    "contact": {
+      "name": "ONAP VFC team",
+      "email": "onap-discuss@lists.onap.org",
+      "url": "https://gerrit.onap.org/r/#/admin/projects/vfc/nfvo/lcm"
+    }
+  },
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/nslcm/v1/ns_instances": {
+      "get": {
+        "operationId": "api_nslcm_v1_ns_instances_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "description": "NS instances",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NsInstance"
+              }
+            }
+          },
+          "500": {
+            "description": "Inner error"
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_nslcm_v1_ns_instances_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateNsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NsInstance"
+            }
+          },
+          "500": {
+            "description": "Inner error"
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/nslcm/v1/ns_instances/{ns_instance_id}": {
+      "get": {
+        "operationId": "api_nslcm_v1_ns_instances_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NsInstance"
+            }
+          },
+          "500": {
+            "description": "Inner error"
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_nslcm_v1_ns_instances_delete",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "HTTP_204_NO_CONTENT"
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "ns_instance_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/nslcm/v1/ns_instances/{ns_instance_id}/heal": {
+      "post": {
+        "operationId": "api_nslcm_v1_ns_instances_heal_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HealNsReq"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "HTTP_202_ACCEPTED"
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "ns_instance_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/nslcm/v1/ns_instances/{ns_instance_id}/instantiate": {
+      "post": {
+        "operationId": "api_nslcm_v1_ns_instances_instantiate_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InstantNsReq"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "HTTP_202_ACCEPTED"
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "ns_instance_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/nslcm/v1/ns_instances/{ns_instance_id}/scale": {
+      "post": {
+        "operationId": "api_nslcm_v1_ns_instances_scale_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ManualScaleNsReq"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "HTTP_202_ACCEPTED"
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "ns_instance_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/nslcm/v1/ns_instances/{ns_instance_id}/terminate": {
+      "post": {
+        "operationId": "api_nslcm_v1_ns_instances_terminate_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TerminateNsReq"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "HTTP_202_ACCEPTED"
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "ns_instance_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/nslcm/v1/ns_instances/{ns_instance_id}/update": {
+      "post": {
+        "operationId": "api_nslcm_v1_ns_instances_update_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateNsReq"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "HTTP_202_ACCEPTED"
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "ns_instance_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/nslcm/v1/ns_lcm_op_occs": {
+      "get": {
+        "operationId": "api_nslcm_v1_ns_lcm_op_occs_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NSLCMOpOcc"
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/nslcm/v1/ns_lcm_op_occs/{lcmopoccid}": {
+      "get": {
+        "operationId": "api_nslcm_v1_ns_lcm_op_occs_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/NSLCMOpOcc"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "lcmopoccid",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/nslcm/v1/subscriptions": {
+      "get": {
+        "operationId": "api_nslcm_v1_subscriptions_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LccnSubscription"
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_nslcm_v1_subscriptions_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LccnSubscriptionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/LccnSubscription"
+            }
+          },
+          "303": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          },
+          "500": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProblemDetails"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    }
+  },
+  "definitions": {
+    "VnfInstanceData": {
+      "description": "Data of vnf instance",
+      "required": [
+        "vnfInstanceId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Specify the target NS instance where the VNF instances are moved to",
+          "type": "string"
+        },
+        "vnfProfileId": {
+          "title": "Vnfprofileid",
+          "description": "Specify the VNF instance that is moved.",
+          "type": "string"
+        }
+      }
+    },
+    "InstantiateVnfData": {
+      "description": "Data of vnf instance",
+      "required": [
+        "vnfdId",
+        "vnfFlavourId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfdId": {
+          "title": "Vnfdid",
+          "description": "Information sufficient to identify the VNFD which defines the VNF to be instantiated. ",
+          "type": "string"
+        },
+        "vnfFlavourId": {
+          "title": "Vnfflavourid",
+          "description": "Identifier of the VNF deployment flavour to be instantiated.",
+          "type": "string"
+        },
+        "vnfInstantiationLevelId": {
+          "title": "Vnfinstantiationlevelid",
+          "description": "Identifier of the instantiation level of the deployment flavour to be instantiated. ",
+          "type": "string"
+        },
+        "vnfInstanceName": {
+          "title": "Vnfinstancename",
+          "description": "Human-readable name of the VNF instance to be created.",
+          "type": "string"
+        }
+      }
+    },
+    "AddressRange": {
+      "title": "Addressrange",
+      "description": "An IP address range to be used.",
+      "required": [
+        "minAddress",
+        "maxAddress"
+      ],
+      "type": "object",
+      "properties": {
+        "minAddress": {
+          "title": "Minaddress",
+          "description": "Lowest IP address belonging to the range.",
+          "type": "string"
+        },
+        "maxAddress": {
+          "title": "Maxaddress",
+          "description": "Highest IP address belonging to the range.",
+          "type": "string"
+        }
+      }
+    },
+    "IpAddressesDataSerialzier": {
+      "description": "List of IP addresses to assign to the extCP instance.",
+      "required": [
+        "type",
+        "fixedAddresses"
+      ],
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the IP addresses.",
+          "type": "string",
+          "enum": [
+            "IPV4",
+            "IPV6"
+          ]
+        },
+        "fixedAddresses": {
+          "type": "array",
+          "items": {
+            "description": "Fixed addresses to assign.",
+            "type": "string"
+          }
+        },
+        "numDynamicAddresses": {
+          "title": "Numdynamicaddresses",
+          "description": "Number of dynamic addresses to assign.",
+          "type": "integer"
+        },
+        "addressRange": {
+          "$ref": "#/definitions/AddressRange"
+        },
+        "subnetId": {
+          "title": "Subnetid",
+          "description": "Subnet defined by the identifier of the subnet resource in the VIM.",
+          "type": "string"
+        }
+      }
+    },
+    "IpOverEthernetAddressData": {
+      "title": "Ipoverethernet",
+      "description": "Network address data for IP over Ethernetto assign to the extCP instance.",
+      "type": "object",
+      "properties": {
+        "macAddress": {
+          "title": "Macaddress",
+          "description": "Mac address",
+          "type": "string"
+        },
+        "ipAddresses": {
+          "description": "List of IP addresses to assign to the extCP instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpAddressesDataSerialzier"
+          }
+        }
+      }
+    },
+    "CpProtocolData": {
+      "description": "This type represents network protocol data.",
+      "required": [
+        "layerProtocol"
+      ],
+      "type": "object",
+      "properties": {
+        "layerProtocol": {
+          "title": "Layerprotocol",
+          "description": "Identifier of layer(s) and protocol(s)",
+          "type": "string",
+          "enum": [
+            "IP_OVER_ETHERNET"
+          ]
+        },
+        "ipOverEthernet": {
+          "$ref": "#/definitions/IpOverEthernetAddressData"
+        }
+      }
+    },
+    "VnfExtCpConfig": {
+      "description": "Config of vnf ext cp",
+      "type": "object",
+      "properties": {
+        "cpInstanceId": {
+          "title": "Cpinstanceid",
+          "description": "Identifier of the external CP instance to which this set of configuration parameters is requested to be applied.",
+          "type": "string"
+        },
+        "linkPortId": {
+          "title": "Linkportid",
+          "description": "Identifier of a pre-conFigured link port to which the external CP will be associated.",
+          "type": "string"
+        },
+        "cpProtocolData": {
+          "description": "Parameters for configuring the network protocols on the link port that connects the CP to a VL",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CpProtocolData"
+          }
+        }
+      }
+    },
+    "VnfExtCpData": {
+      "description": "External CPs of the VNF to be connected to this external VL.",
+      "required": [
+        "cpdId"
+      ],
+      "type": "object",
+      "properties": {
+        "cpdId": {
+          "title": "Cpdid",
+          "description": "The identifier of the CPD in the VNFD.",
+          "type": "string"
+        },
+        "cpConfig": {
+          "description": "List of instance data that need to be conFigured on the CP instances created from the respective CPD.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfExtCpConfig"
+          }
+        }
+      }
+    },
+    "ResourceHandle": {
+      "title": "Resourcehandle",
+      "description": "Identifier(s) of the virtualised network resource(s) realizing the VL instance",
+      "required": [
+        "resourceId"
+      ],
+      "type": "object",
+      "properties": {
+        "vimConnectionId": {
+          "title": "Vimconnectionid",
+          "description": "Identifier of the VIM connection to manage the resource.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "resourceProviderId": {
+          "title": "Resourceproviderid",
+          "description": "Identifier of the entity responsible for the management of the resource.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "resourceId": {
+          "title": "Resourceid",
+          "description": "Identifier of the resource in the scope of the VIM or the resource provider.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vimLevelResourceType": {
+          "title": "Vimlevelresourcetype",
+          "description": "String, type of the resource in the scope of the VIM or the resource provider.",
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "ExtLinkPortData": {
+      "description": "This type represents an externallyprovided link port to be used to connect a VNF external connection point to an external VL",
+      "required": [
+        "id",
+        "resourceHandle"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Provided by the entity that has created the link port",
+          "type": "string"
+        },
+        "resourceHandle": {
+          "$ref": "#/definitions/ResourceHandle"
+        }
+      }
+    },
+    "ExtVirtualLinkData": {
+      "description": "This type represents an external VL",
+      "required": [
+        "resourceId"
+      ],
+      "type": "object",
+      "properties": {
+        "extVirtualLinkId": {
+          "title": "Extvirtuallinkid",
+          "description": "The identifier of the external VL instance, if provided. ",
+          "type": "string"
+        },
+        "vimId": {
+          "title": "Vimid",
+          "description": "Identifier of the VIM that manages this resource.",
+          "type": "string"
+        },
+        "resourceProviderId": {
+          "title": "Resourceproviderid",
+          "description": "Identifies the entity responsible for the management of this resource.",
+          "type": "string"
+        },
+        "resourceId": {
+          "title": "Resourceid",
+          "description": "The identifier of the resource in the scope of the VIM or the resource provider.",
+          "type": "string"
+        },
+        "extCps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfExtCpData"
+          }
+        },
+        "extLinkPorts": {
+          "description": "Externally provided link ports to be used to connect external connection points to this external VL. ",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtLinkPortData"
+          }
+        }
+      }
+    },
+    "ExtManagedVirtualLinkData": {
+      "description": "This type represents an externally-managed internalVL.",
+      "required": [
+        "virtualLinkDescId",
+        "resourceId"
+      ],
+      "type": "object",
+      "properties": {
+        "extManagedVirtualLinkId": {
+          "title": "Extmanagedvirtuallinkid",
+          "description": "The identifier of the externally-managed internal VL instance,if provided.",
+          "type": "string"
+        },
+        "virtualLinkDescId": {
+          "title": "Virtuallinkdescid",
+          "description": "The identifier of the VLD in the VNFD for this VL.",
+          "type": "string"
+        },
+        "vimId": {
+          "title": "Vimid",
+          "description": "Identifier of the VIMthat manage this resource.",
+          "type": "string"
+        },
+        "resourceProviderId": {
+          "title": "Resourceproviderid",
+          "description": "Identifies the entity responsible for the management ofthis resource.",
+          "type": "string"
+        },
+        "resourceId": {
+          "title": "Resourceid",
+          "description": "The identifier of the resource in the scope of the VIM orthe resource provider.",
+          "type": "string"
+        }
+      }
+    },
+    "ChangeVnfFlavourDataSerizlizer": {
+      "description": "The type represents the information that is requested to be changed deployment flavour for an existing VNF instance.",
+      "required": [
+        "vnfInstanceId",
+        "newFlavourId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Identifier of the VNF instance to be modified.",
+          "type": "string"
+        },
+        "newFlavourId": {
+          "title": "Newflavourid",
+          "description": "Identifier of the VNF deployment flavour to be instantiated.",
+          "type": "string"
+        },
+        "instantiationLevelId": {
+          "title": "Instantiationlevelid",
+          "description": "Identifier of the instantiation level of the deployment flavour to be instantiated.",
+          "type": "string"
+        },
+        "extVirtualLinks": {
+          "description": "Information about external VLs to connect the VNF to.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtVirtualLinkData"
+          }
+        },
+        "extManagedVirtualLinks": {
+          "description": "Information about internal VLs that are managed by NFVO",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtManagedVirtualLinkData"
+          }
+        },
+        "additionalParams": {
+          "title": "Additionalparams",
+          "description": "Additional input parameters for the flavour change process",
+          "type": "string"
+        }
+      }
+    },
+    "OperationalStates": {
+      "title": "Changestateto",
+      "description": "The desired operational state to change the VNF to.",
+      "required": [
+        "OperationalStates"
+      ],
+      "type": "object",
+      "properties": {
+        "OperationalStates": {
+          "title": "Operationalstates",
+          "description": "State of operation",
+          "type": "string",
+          "enum": [
+            "STARTED",
+            "STOPPED"
+          ]
+        }
+      }
+    },
+    "StopType": {
+      "title": "Stoptype",
+      "description": "It signals whether forceful or graceful stop is requested.",
+      "required": [
+        "StopType"
+      ],
+      "type": "object",
+      "properties": {
+        "StopType": {
+          "title": "Stoptype",
+          "description": "Type of stop",
+          "type": "string",
+          "enum": [
+            "FORCEFUL",
+            "GRACEFUL"
+          ]
+        }
+      }
+    },
+    "OperateVnfData": {
+      "description": "This type represents a VNF instance for which the operational state needs to be changed and the requested new state",
+      "required": [
+        "vnfInstanceId",
+        "changeStateTo"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Identifier of the VNF instance.",
+          "type": "string"
+        },
+        "changeStateTo": {
+          "$ref": "#/definitions/OperationalStates"
+        },
+        "stopType": {
+          "$ref": "#/definitions/StopType"
+        },
+        "gracefulStopTimeout": {
+          "title": "Gracefulstoptimeout",
+          "description": "The time interval to wait for the VNF to be taken out ofservice during graceful stop.",
+          "type": "string"
+        }
+      }
+    },
+    "ModifyVnfInfoData": {
+      "description": "This type represents the information that is requested to be modified for a VNF instance. ",
+      "required": [
+        "vnfInstanceId",
+        "vnfPkgId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Identifier of the VNF instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "vnfInstanceName": {
+          "title": "Vnfinstancename",
+          "description": "New value of the 'vnfInstanceName' attribute in 'VnfInstance', or 'null' to remove the attribute.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfInstanceDescription": {
+          "title": "Vnfinstancedescription",
+          "description": "If present, this attribute signals modifications of the 'vnfInstanceDescription' attribute in 'VnfInstance'",
+          "type": "string"
+        },
+        "vnfPkgId": {
+          "title": "Vnfpkgid",
+          "description": "New value of the 'vnfPkgId' attribute in 'VnfInstance' The value 'null' is not permitted..",
+          "type": "string",
+          "format": "uuid"
+        },
+        "vnfConfigurableProperties": {
+          "title": "Vnfconfigurableproperties",
+          "description": "Modifications to entries in the 'vnfConfigurableProperties' list, as defined below this Table.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "metaData": {
+          "title": "Metadata",
+          "description": "If present, this attribute signals modifications of certain 'metadata' attribute in 'vnfInstance'.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "extensions": {
+          "title": "Extensions",
+          "description": "If present,this attribute signals modifications of certain 'extensions' attribute in 'vnfInstance'.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ChangeExtVnfConnectivityData": {
+      "description": "This type describes the information invoked bythe NFVO to change the external VNF connectivity information maintained by the VNFM.",
+      "required": [
+        "vnfInstanceId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Identifier of the VNF instance.",
+          "type": "string"
+        },
+        "extVirtualLinks": {
+          "description": "Information about external VLs to change",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtVirtualLinkData"
+          }
+        },
+        "additionalParams": {
+          "title": "Additionalparams",
+          "description": "Additional parameters passed by the OSS as input to the external connectivity change process",
+          "type": "string"
+        }
+      }
+    },
+    "SapData": {
+      "description": "This type represents the information related to a SAP of a NS",
+      "required": [
+        "sapdId",
+        "sapName",
+        "description"
+      ],
+      "type": "object",
+      "properties": {
+        "sapdId": {
+          "title": "Sapdid",
+          "description": "Reference to the SAPD for this SAP.",
+          "type": "string"
+        },
+        "sapName": {
+          "title": "Sapname",
+          "description": "Human readable name for the SAP.",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "Human readable description for the SAP. ",
+          "type": "string"
+        },
+        "sapProtocolData": {
+          "description": "Parameters for configuring the network protocols on the SAP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CpProtocolData"
+          }
+        }
+      }
+    },
+    "AssocNewNsdVersionData": {
+      "title": "Assocnewnsdversiondata",
+      "description": "Specify the new NSD to be used for the NS instance.",
+      "required": [
+        "newNsdId"
+      ],
+      "type": "object",
+      "properties": {
+        "newNsdId": {
+          "title": "Newnsdid",
+          "description": "Identifier of the new NSD version that is to be associated to the NS instance. ",
+          "type": "string"
+        }
+      }
+    },
+    "MoveVnfInstanceData": {
+      "required": [
+        "targetNsInstanceId"
+      ],
+      "type": "object",
+      "properties": {
+        "targetNsInstanceId": {
+          "title": "Targetnsinstanceid",
+          "description": "Specify the target NS instance where the VNF instances are moved to.",
+          "type": "string"
+        },
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Specify the VNF instance that is moved.",
+          "type": "string"
+        }
+      }
+    },
+    "NsCpHandle": {
+      "description": "This type represents an identifier of the CP or SAP instance.",
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Identifier of the VNF instance associated to the CPinstance.",
+          "type": "string"
+        },
+        "vnfExtCpInstanceId": {
+          "title": "Vnfextcpinstanceid",
+          "description": "Identifier of the VNF external CP instance in thescope of the VNF instance.",
+          "type": "string"
+        },
+        "pnfInfoId": {
+          "title": "Pnfinfoid",
+          "description": "Identifier of the PNF instance associated to the CPinstance.",
+          "type": "string"
+        },
+        "pnfExtCpInstanceId": {
+          "title": "Pnfextcpinstanceid",
+          "description": "Identifier of the PNF external CP instance in thescope of the PNF.",
+          "type": "string"
+        },
+        "nsInstanceId": {
+          "title": "Nsinstanceid",
+          "description": "Identifier of the NS instance associated to the SAPinstance",
+          "type": "string"
+        },
+        "nsSapInstanceId": {
+          "title": "Nssapinstanceid",
+          "description": "Identifier of the SAP instance in the scope of the NSinstance.",
+          "type": "string"
+        }
+      }
+    },
+    "Mask": {
+      "description": "Indicates values of specific bits in a frame",
+      "required": [
+        "startingPoint",
+        "length",
+        "value"
+      ],
+      "type": "object",
+      "properties": {
+        "startingPoint": {
+          "title": "Startingpoint",
+          "description": "Indicates the offset between the last bit of the sourcemac address and the first bit of the sequence of bitsto be matched.",
+          "type": "string"
+        },
+        "length": {
+          "title": "Length",
+          "description": "Indicates the number of bits to be matched",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "description": "Provide the sequence of bit values to be matched.",
+          "type": "string"
+        }
+      }
+    },
+    "NfpRule": {
+      "title": "Nfprule",
+      "description": "NFP classification and selection rule.",
+      "type": "object",
+      "properties": {
+        "etherDestinationAddress": {
+          "title": "Etherdestinationaddress",
+          "description": "Indicates a destination Mac address",
+          "type": "string"
+        },
+        "etherSourceAddress": {
+          "title": "Ethersourceaddress",
+          "description": "Indicates a source Mac address",
+          "type": "string"
+        },
+        "etherType": {
+          "title": "Ethertype",
+          "description": "Indicates the protocol carried over the Ethernet layer",
+          "type": "string",
+          "enum": [
+            "IPV4",
+            "IPV6"
+          ]
+        },
+        "vlanTag": {
+          "description": "ndicates a VLAN identifier in an IEEE 802.1Q-2014 tag",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "protocol": {
+          "title": "Protocol",
+          "description": "Indicates the L4 protocol, For IPv4 [7] this corresponds tothe field called Protocol to identifythe next level protocol",
+          "type": "string",
+          "enum": [
+            "TCP",
+            "UDP",
+            "ICMP"
+          ]
+        },
+        "dscp": {
+          "title": "Dscp",
+          "description": "For IPv4 [7] a string of 0 and 1 digits that corresponds to the6-bit Differentiated Services Code Point (DSCP) field of theIP header.",
+          "type": "string"
+        },
+        "sourcePortRange": {
+          "title": "Sourceportrange",
+          "description": "Indicates a range of source ports",
+          "type": "string"
+        },
+        "destinationPortRange": {
+          "title": "Destinationportrange",
+          "description": "Indicates a range of destination ports",
+          "type": "string"
+        },
+        "sourceIpAddressPrefix": {
+          "title": "Sourceipaddressprefix",
+          "description": "Indicates the source IP address range in CIDRformat.",
+          "type": "string"
+        },
+        "destinationIpAddressPrefix": {
+          "title": "Destinationipaddressprefix",
+          "description": "Indicates the destination IP address rangein CIDRformat.",
+          "type": "string"
+        },
+        "extendedCriteria": {
+          "description": "Indicates values of specific bits in a frame",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mask"
+          }
+        }
+      }
+    },
+    "NfpData": {
+      "description": "This type contains information used to create or modify NFP instance parameters for the updateof an existing VNFFG instance. ",
+      "type": "object",
+      "properties": {
+        "nfpInfoId": {
+          "title": "Nfpinfoid",
+          "description": "Identifier of the NFP to be modified.",
+          "type": "string"
+        },
+        "nfpName": {
+          "title": "Nfpname",
+          "description": "Human readable name for the NFP.",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "Human readable description for the NFP",
+          "type": "string"
+        },
+        "nsCpHandle": {
+          "description": "HanIdentifier(s) of the CPs and SAPs which the NFP passes by.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NsCpHandle"
+          }
+        },
+        "nfpRule": {
+          "$ref": "#/definitions/NfpRule"
+        }
+      }
+    },
+    "UpdateVnffgData": {
+      "description": "This type specifies the parameters used for the update of an existing VNFFG instance.",
+      "required": [
+        "vnffgInfoId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnffgInfoId": {
+          "title": "Vnffginfoid",
+          "description": "Identifier of an existing VNFFG to be updated for the NS Instance.",
+          "type": "string"
+        },
+        "nfp": {
+          "description": "nfp",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NfpData"
+          }
+        },
+        "nfpInfoId": {
+          "description": "Identifier(s) of the NFP to be deleted from a given VNFFG.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ChangeNsFlavourData": {
+      "title": "Changensflavourdata",
+      "description": "Specifies the new DF to be applied to the NS instance",
+      "required": [
+        "newNsFlavourId"
+      ],
+      "type": "object",
+      "properties": {
+        "newNsFlavourId": {
+          "title": "Newnsflavourid",
+          "description": "Identifier of the new NS DF to apply to this NS instance.",
+          "type": "string"
+        },
+        "instantiationLevelId": {
+          "title": "Instantiationlevelid",
+          "description": "Identifier of the instantiation level of the deployment flavour to be instantiated.",
+          "type": "string"
+        }
+      }
+    },
+    "IdentifierInPnf": {
+      "title": "Cpinstancei16",
+      "description": "Identifier of the CP. Shall be present for existing CP.",
+      "required": [
+        "IdentifierInPnf"
+      ],
+      "type": "object",
+      "properties": {
+        "IdentifierInPnf": {
+          "description": "An Identifier that is unique within respect to a PNF.",
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "IdentifierInNsd": {
+      "title": "Cpdid",
+      "description": "Identifier of the Connection Point Descriptor (CPD) for this CP",
+      "required": [
+        "IdentifierInNsd"
+      ],
+      "type": "object",
+      "properties": {
+        "IdentifierInNsd": {
+          "description": "An identifier that is unique within a NS descriptor",
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "PnfExtCpData": {
+      "description": "Address assigned for the PNF external CP(s). ",
+      "type": "object",
+      "properties": {
+        "cpInstanceI16": {
+          "$ref": "#/definitions/IdentifierInPnf"
+        },
+        "cpdId": {
+          "$ref": "#/definitions/IdentifierInNsd"
+        },
+        "cpProtocolData": {
+          "description": "Address assigned for this CP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CpProtocolData"
+          }
+        }
+      }
+    },
+    "AddPnfData": {
+      "description": "Serializer data of add pnf",
+      "required": [
+        "pnfId",
+        "pnfName",
+        "pnfdId",
+        "pnfProfileId"
+      ],
+      "type": "object",
+      "properties": {
+        "pnfId": {
+          "title": "Pnfid",
+          "description": "Identifier of the PNF.",
+          "type": "string"
+        },
+        "pnfName": {
+          "title": "Pnfname",
+          "description": "Name of the PNF.",
+          "type": "string"
+        },
+        "pnfdId": {
+          "title": "Pnfdid",
+          "description": "Identifier of the PNFD on which the PNF is based.",
+          "type": "string"
+        },
+        "pnfProfileId": {
+          "title": "Pnfprofileid",
+          "description": "Identifier of related PnfProfile in the NSD on which the PNF is based.",
+          "type": "string"
+        },
+        "cpData": {
+          "description": "Address assigned for the PNF external CP(s). ",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PnfExtCpData"
+          }
+        }
+      }
+    },
+    "ModifyPnfData": {
+      "description": "This type specifies an PNF to be modified in the NS instance.",
+      "required": [
+        "pnfId"
+      ],
+      "type": "object",
+      "properties": {
+        "pnfId": {
+          "title": "Pnfid",
+          "description": "Identifier of the PNF.",
+          "type": "string"
+        },
+        "pnfName": {
+          "title": "Pnfname",
+          "description": "Name of the PNF",
+          "type": "string"
+        },
+        "cpData": {
+          "description": "Address assigned for the PNF external CP(s).",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PnfExtCpData"
+          }
+        }
+      }
+    },
+    "DateTime": {
+      "title": "Updatetime",
+      "description": "Timestamp indicating the update time of the NS",
+      "required": [
+        "DateTime"
+      ],
+      "type": "object",
+      "properties": {
+        "DateTime": {
+          "description": "Date-time stamp.",
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "UpdateNsReq": {
+      "required": [
+        "updateType"
+      ],
+      "type": "object",
+      "properties": {
+        "updateType": {
+          "title": "Updatetype",
+          "description": "The type of update.",
+          "type": "string",
+          "enum": [
+            "ADD_VNF",
+            "REMOVE_VNF",
+            "INSTANTIATE_VNF",
+            "CHANGE_VNF_DF",
+            "OPERATE_VNF",
+            "MODIFY_VNF_INFORMATION",
+            "CHANGE_EXTERNAL_VNF_CONNECTIVITY",
+            "REMOVE_SAP",
+            "ADD_NESTED_NS",
+            "REMOVE_NESTED_NS",
+            "ASSOC_NEW_NSD_VERSION",
+            "MOVE_VNF",
+            "ADD_VNFFG",
+            "REMOVE_VNFFG",
+            "UPDATE_VNFFG",
+            "CHANGE_NS_DF",
+            "ADD_PNF",
+            "MODIFY_PNF",
+            "REMOVE_PNF"
+          ]
+        },
+        "addVnfInstance": {
+          "description": "Identifies an existing VNF instance to be added to the NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfInstanceData"
+          }
+        },
+        "removeVnfInstanceId": {
+          "description": "Identifies an existing VNF instance to be removed from the NS instance.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "instantiateVnfData": {
+          "description": "Identifies the new VNF to be instantiated.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InstantiateVnfData"
+          }
+        },
+        "changeVnfFlavourData": {
+          "description": "Identifies the new DF of the VNF instance to be changed to.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChangeVnfFlavourDataSerizlizer"
+          }
+        },
+        "operateVnfData": {
+          "description": "This type represents a VNF instance for which the operational state needs to be changed and the requested new state.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OperateVnfData"
+          }
+        },
+        "modifyVnfInfoData": {
+          "description": "This type represents the information that is requested to be modified for a VNF instance. ",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModifyVnfInfoData"
+          }
+        },
+        "changeExtVnfConnectivityData": {
+          "description": "Specifies the new external connectivity data of theVNF instance to be changed",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChangeExtVnfConnectivityData"
+          }
+        },
+        "addSap": {
+          "description": "Identifies a new SAP to be added to the NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SapData"
+          }
+        },
+        "removeSapId": {
+          "description": "The identifier an existing SAP to be removed from the NS instance",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "addNestedNsId": {
+          "description": "The identifier of an existing nested NS instance to be added to the NS instance",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removeNestedNsId": {
+          "description": "The identifier of an existing nested NS instance to be removed from the NS instance.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assocNewNsdVersionData": {
+          "$ref": "#/definitions/AssocNewNsdVersionData"
+        },
+        "moveVnfInstanceData": {
+          "description": "Specify existing VNF instance to be moved from one NS instance to another NS instance",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MoveVnfInstanceData"
+          }
+        },
+        "addVnffg": {
+          "description": "The identifier of an existing nested NS instance to be added to the NS instance.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removeVnffgId": {
+          "description": "The identifier of an existing nested NS instance to be removed from the NS instance",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateVnffg": {
+          "description": "Specify the new VNFFG Information data to be updated for a VNFFG of the NS Instance",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UpdateVnffgData"
+          }
+        },
+        "changeNsFlavourData": {
+          "$ref": "#/definitions/ChangeNsFlavourData"
+        },
+        "addPnfData": {
+          "description": "Specifies the PNF to be added into the NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AddPnfData"
+          }
+        },
+        "modifyPnfData": {
+          "description": "Specifies the PNF to be modified in the NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ModifyPnfData"
+          }
+        },
+        "removePnfId": {
+          "description": "Identifier of the PNF to be deleted from the NS instance.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updateTime": {
+          "$ref": "#/definitions/DateTime"
+        }
+      }
+    },
+    "VnfScaleInfo": {
+      "description": "Scale status of the VNF, one entry per aspect. Represents for every scaling aspect how big the VNF has been scaled w.r.t. that aspect.",
+      "required": [
+        "aspectlId",
+        "scaleLevel"
+      ],
+      "type": "object",
+      "properties": {
+        "aspectlId": {
+          "description": "The scaling aspect",
+          "type": "object",
+          "properties": {}
+        },
+        "scaleLevel": {
+          "description": "The scale level for that aspect",
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    "IpAddressesInfoSerialzier": {
+      "description": "List of IP addresses to assign to the extCP instance.",
+      "required": [
+        "type"
+      ],
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "The type of the IP addresses.",
+          "type": "string",
+          "enum": [
+            "IPV4",
+            "IPV6"
+          ]
+        },
+        "addresses": {
+          "description": "An IPV4 or IPV6 address",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isDynamic": {
+          "title": "Isdynamic",
+          "description": "Indicates whether this set of addresses was assigned dynamically (true) or based on address information provided as input from the API consumer (false). ",
+          "type": "boolean"
+        },
+        "addressRange": {
+          "$ref": "#/definitions/AddressRange"
+        },
+        "subnetId": {
+          "title": "Subnetid",
+          "description": "Subnet defined by the identifier of the subnet resource in the VIM. ",
+          "type": "string"
+        }
+      }
+    },
+    "IpOverEthernetAddressInfo": {
+      "title": "Ipoverethernet",
+      "description": "Network address data for IP over Ethernetto assign to the extCP instance.",
+      "type": "object",
+      "properties": {
+        "macAddress": {
+          "title": "Macaddress",
+          "description": "Mac address",
+          "type": "string"
+        },
+        "ipAddresses": {
+          "description": "List of IP addresses to assign to the extCP instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpAddressesInfoSerialzier"
+          }
+        }
+      }
+    },
+    "CpProtocolInfo": {
+      "description": "Network protocol information for this CP.",
+      "required": [
+        "layerProtocol"
+      ],
+      "type": "object",
+      "properties": {
+        "layerProtocol": {
+          "title": "Layerprotocol",
+          "description": "Identifier of layer(s) and protocol(s)",
+          "type": "string",
+          "enum": [
+            "IP_OVER_ETHERNET"
+          ]
+        },
+        "ipOverEthernet": {
+          "$ref": "#/definitions/IpOverEthernetAddressInfo"
+        }
+      }
+    },
+    "VnfExtCpInfo": {
+      "description": "Information about the external CPs exposed by the VNF instance.",
+      "required": [
+        "id",
+        "cpdId"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the external CP instance and the related information instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "cpdId": {
+          "title": "Cpdid",
+          "description": "Identifier of the external CPD, VnfExtCpd, in the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "cpProtocolInfo": {
+          "description": "Network protocol information for this CP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CpProtocolInfo"
+          }
+        },
+        "extLinkPortId": {
+          "title": "Extlinkportid",
+          "description": "Identifier of the extLinkPortInfo structure inside the extVirtualLinkInfo structure.",
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "ExtlinkPortInfo": {
+      "description": "Link ports of this VL.",
+      "required": [
+        "id",
+        "resourceHandle"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this link port as provided by the entity that has created the link port.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "resourceHandle": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "cpInstanceId": {
+          "title": "Cpinstanceid",
+          "description": "Identifier of the external CP of the VNFconnected to this link port.",
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "ExtVirtualLinkInfo": {
+      "description": "Information about the external VLs the VNF instance is connected to.",
+      "required": [
+        "id",
+        "resourceHandle"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the external VL and the related external VL information instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "resourceHandle": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "extlinkPorts": {
+          "description": "Link ports of this VL.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtlinkPortInfo"
+          }
+        }
+      }
+    },
+    "VnfLinkPortInfo": {
+      "description": "VnfLinkPortInfo, Link ports of this VL.",
+      "required": [
+        "id",
+        "resourceHandle"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this link port as provided by the entity that has created the link port.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "resourceHandle": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "cpInstanceId": {
+          "title": "Cpinstanceid",
+          "description": "When the link port is used for external connectivity by the VNF, this attribute represents the identifier of the external CP of the VNF to be connected to this link port.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "cpInstanceType": {
+          "title": "Cpinstancetype",
+          "description": "Type of the CP instance that is identified by cpInstanceId.",
+          "type": "string",
+          "enum": [
+            "VNFC_CP",
+            "EXT_CP"
+          ]
+        }
+      }
+    },
+    "ExtManagedVirtualLinkInfo": {
+      "description": "Information about the externally-managed inner VLs of the VNF instance.",
+      "required": [
+        "id",
+        "vnfVirtualLinkDescId",
+        "networkResource"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the externally-managed inner VL and the related externally-managed VL information instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfVirtualLinkDescId": {
+          "title": "Vnfvirtuallinkdescid",
+          "description": "Identifier of the VNF Virtual Link Descriptor (VLD) in the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "networkResource": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "vnfLinkPorts": {
+          "description": "VnfLinkPortInfo, Link ports of this VL.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfLinkPortInfo"
+          }
+        }
+      }
+    },
+    "VnfcCpInfo": {
+      "description": "CPs of the VNFC instance. Shall be present when that particular CP of the VNFC instance is associated to an external CP of the VNF instance.",
+      "required": [
+        "id",
+        "cpdId",
+        "vnfLinkPortId"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the external CP instance and the related information instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "cpdId": {
+          "title": "Cpdid",
+          "description": "Identifier of the external CPD, VnfExtCpd, in the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfExtCpId": {
+          "title": "Vnfextcpid",
+          "description": "When the VNFC CP is exposed as external CP of the VNF, the identifier of this external VNF CP.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "cpProtocolInfo": {
+          "description": "Network protocol information for this CP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CpProtocolInfo"
+          }
+        },
+        "vnfLinkPortId": {
+          "title": "Vnflinkportid",
+          "description": "Identifier of the vnfLinkPorts structure in the vnfVirtualLinkResourceInfo structure.",
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "VnfcResourceInfo": {
+      "description": "Information about the virtualised compute and storage resources used by the VNFCs of the VNF instance.",
+      "required": [
+        "computeResource"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this VnfcResourceInfo instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vduId": {
+          "title": "Vduid",
+          "description": "Reference to the applicable VDU in the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "computeResource": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "storageResourceIds": {
+          "description": "References to the VirtualStorage resources. The value refers to a VirtualStorageResourceInfo item in the VnfInstance.",
+          "type": "array",
+          "items": {
+            "description": "Identifier In Vnf",
+            "type": "string"
+          }
+        },
+        "reservationId": {
+          "title": "Reservationid",
+          "description": "The reservation identifier applicable to the resource.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfcCpInfo": {
+          "description": "CPs of the VNFC instance. Shall be present when that particular CP of the VNFC instance is associated to an external CP of the VNF instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfcCpInfo"
+          }
+        },
+        "metadata": {
+          "title": "Metadata",
+          "description": "Metadata about this resource.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "VnfVirtualLinkResourceInfo": {
+      "description": "Information about the virtualised network resources used by the VLs of the VNF instance.",
+      "required": [
+        "id",
+        "virtualLinkDescId",
+        "networkResource"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this VnfVirtualLinkResourceInfo instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "virtualLinkDescId": {
+          "title": "Virtuallinkdescid",
+          "description": "Identifier of the VNF Virtual Link Descriptor (VLD) in the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "networkResource": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "reservationId": {
+          "title": "Reservationid",
+          "description": "The reservation identifier applicable to the resource.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfLinkPorts": {
+          "description": "Links ports of this VL. Shall be present when the linkPort is used for external connectivity by the VNF",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfLinkPortInfo"
+          }
+        },
+        "metadata": {
+          "title": "Metadata",
+          "description": "Metadata about this resource.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "VirtualStorageResourceInfo": {
+      "description": "Information about the virtualised storage resources used as storage for the VNF instance.",
+      "required": [
+        "id",
+        "storageResource"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this VirtualStorageResourceInfo instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "virtualStorageDescId": {
+          "title": "Virtualstoragedescid",
+          "description": "Identifier of the VirtualStorageDesc in the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "storageResource": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "reservationId": {
+          "title": "Reservationid",
+          "description": "The reservation identifier applicable to the resource.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "metadata": {
+          "title": "Metadata",
+          "description": "Metadata about this resource.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "InstantiatedVnfInfo": {
+      "title": "Instantiatedvnfinfo",
+      "description": "Information specific to an instantiated VNF instance. This attribute shall be present if the instantiateState attribute value is INSTANTIATED",
+      "required": [
+        "flavourId",
+        "vnfState",
+        "extCpInfo"
+      ],
+      "type": "object",
+      "properties": {
+        "flavourId": {
+          "title": "Flavourid",
+          "description": "Identifier of the VNF deployment flavour applied to this VNF instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfState": {
+          "title": "Vnfstate",
+          "description": "State of the VNF instance.",
+          "type": "string",
+          "enum": [
+            "STARTED",
+            "STOPPED"
+          ]
+        },
+        "scaleStatus": {
+          "description": "Scale status of the VNF, one entry per aspect. Represents for every scaling aspect how big the VNF has been scaled w.r.t. that aspect.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfScaleInfo"
+          }
+        },
+        "extCpInfo": {
+          "description": "Information about the external CPs exposed by the VNF instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfExtCpInfo"
+          }
+        },
+        "extVirtualLinkInfo": {
+          "description": "Information about the external VLs the VNF instance is connected to.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtVirtualLinkInfo"
+          }
+        },
+        "extManagedVirtualLinkInfo": {
+          "description": "Information about the externally-managed inner VLs of the VNF instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExtManagedVirtualLinkInfo"
+          }
+        },
+        "monitoringParameters": {
+          "title": "Monitoringparameters",
+          "description": "Active monitoring parameters.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "localizationLanguage": {
+          "title": "Localizationlanguage",
+          "description": "Information about localization language of the VNF.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfcResourceInfo": {
+          "description": "Information about the virtualised compute and storage resources used by the VNFCs of the VNF instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfcResourceInfo"
+          }
+        },
+        "vnfVirtualLinkResourceInfo": {
+          "description": "Information about the virtualised network resources used by the VLs of the VNF instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfVirtualLinkResourceInfo"
+          }
+        },
+        "virtualStorageResourceInfo": {
+          "description": "Information about the virtualised storage resources used as storage for the VNF instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualStorageResourceInfo"
+          }
+        }
+      }
+    },
+    "Link": {
+      "title": "Href",
+      "description": "URI of this resource.",
+      "required": [
+        "href"
+      ],
+      "type": "object",
+      "properties": {
+        "href": {
+          "title": "Href",
+          "description": "URI of the referenced resource.",
+          "type": "string"
+        }
+      }
+    },
+    "VnfInstanceLinks": {
+      "title": " links",
+      "description": "Links to resources related to this resource.",
+      "required": [
+        "href"
+      ],
+      "type": "object",
+      "properties": {
+        "href": {
+          "$ref": "#/definitions/Link"
+        },
+        "indicators": {
+          "$ref": "#/definitions/Link"
+        },
+        "instantiate": {
+          "$ref": "#/definitions/Link"
+        },
+        "termiante": {
+          "$ref": "#/definitions/Link"
+        },
+        "scale": {
+          "$ref": "#/definitions/Link"
+        },
+        "scaleToLevel": {
+          "$ref": "#/definitions/Link"
+        },
+        "changeFlavour": {
+          "$ref": "#/definitions/Link"
+        },
+        "heal": {
+          "$ref": "#/definitions/Link"
+        },
+        "operate": {
+          "$ref": "#/definitions/Link"
+        },
+        "changeExtConn": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "VnfInstance": {
+      "description": "Information on constituent VNF(s) of the NS instance.",
+      "required": [
+        "id",
+        "vnfProvider",
+        "vnfdVersion",
+        "vnfPkgId",
+        "instantiationState"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the VNF instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfInstanceName": {
+          "title": "Vnfinstancename",
+          "description": "Name of the VNF instance.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfInstanceDescription": {
+          "title": "Vnfinstancedescription",
+          "description": "Human-readable description of the VNF instance.",
+          "type": "string"
+        },
+        "vnfdId": {
+          "title": "Vnfdid",
+          "description": "Identifier of the VNFD on which the VNF instance is based.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfProvider": {
+          "title": "Vnfprovider",
+          "description": "Provider of the VNF and the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfProductName": {
+          "title": "Vnfproductname",
+          "description": "Name to identify the VNF Product.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfSoftwareVersion": {
+          "title": "Vnfsoftwareversion",
+          "description": "Software version of the VNF.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfdVersion": {
+          "title": "Vnfdversion",
+          "description": "Identifies the version of the VNFD.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfPkgId": {
+          "title": "Vnfpkgid",
+          "description": "Identifier of information held by the NFVO about the specific VNF package on which the VNF is based. This attribute can be modified with the PATCH method.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "vnfConfigurableProperties": {
+          "title": "Vnfconfigurableproperties",
+          "description": "Current values of the configurable properties of the VNF instance. Configurable properties referred in this attribute are declared in the VNFD",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "vimId": {
+          "description": "Identifier set of a VIM that manages resources for the VNF instance.",
+          "type": "array",
+          "items": {
+            "description": "Identifier of a VIM that manages resources for the VNF instance.",
+            "type": "string"
+          }
+        },
+        "instantiationState": {
+          "title": "Instantiationstate",
+          "description": "The instantiation state of the VNF.",
+          "type": "string",
+          "enum": [
+            "NOT_INSTANTIATED",
+            "INSTANTIATED"
+          ]
+        },
+        "instantiatedVnfInfo": {
+          "$ref": "#/definitions/InstantiatedVnfInfo"
+        },
+        "metadata": {
+          "title": "Metadata",
+          "description": "Additional VNF-specific metadata describing the VNF instance. This attribute can be modified with the PATCH method.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "extensions": {
+          "title": "Extensions",
+          "description": "VNF-specific attributes that affect the lifecycle management of this VNF instance by the VNFM, or the lifecycle management scripts. This attribute can be modified with the PATCH method.",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "_links": {
+          "$ref": "#/definitions/VnfInstanceLinks"
+        }
+      }
+    },
+    "PnfExtCpInfo": {
+      "description": "Information on the external CP of the PNF",
+      "required": [
+        "cpInstanceId",
+        "cpdId",
+        "cpProtocolData"
+      ],
+      "type": "object",
+      "properties": {
+        "cpInstanceId": {
+          "title": "Cpinstanceid",
+          "description": "Identifier of the CP in the scope of the PNF.",
+          "type": "string"
+        },
+        "cpdId": {
+          "title": "Cpdid",
+          "description": "Identifier of (reference to) the Connection Point Descriptor(CPD) for this CP.",
+          "type": "string"
+        },
+        "cpProtocolData": {
+          "description": "Parameters for configuring the network protocols onthe CP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CpProtocolData"
+          }
+        }
+      }
+    },
+    "PnfInfo": {
+      "description": "Information on constituent PNF(s) of the NS instance.",
+      "required": [
+        "pnfId",
+        "pnfName",
+        "pnfdId",
+        "pnfdInfoId",
+        "pnfProfileId",
+        "cpInfo"
+      ],
+      "type": "object",
+      "properties": {
+        "pnfId": {
+          "title": "Pnfid",
+          "description": "Identifier of the PNF.",
+          "type": "string"
+        },
+        "pnfName": {
+          "title": "Pnfname",
+          "description": "Name of the PNF.",
+          "type": "string"
+        },
+        "pnfdId": {
+          "title": "Pnfdid",
+          "description": "Identifier of the PNFD on which the PNF is based.",
+          "type": "string"
+        },
+        "pnfdInfoId": {
+          "title": "Pnfdinfoid",
+          "description": "Identifier of the PNFD information onject related to this PNF.",
+          "type": "string"
+        },
+        "pnfProfileId": {
+          "title": "Pnfprofileid",
+          "description": "Identifier of the related PnfProfile in the NSD on which the PNF is based.",
+          "type": "string"
+        },
+        "cpInfo": {
+          "description": "Information on the external CP of the PNF",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PnfExtCpInfo"
+          }
+        }
+      }
+    },
+    "NsLinkPortInfo": {
+      "description": "Link ports of this VL.",
+      "required": [
+        "id",
+        "resourceHandle"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this link port as provided by the entity that has created the link port.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "resourceHandle": {
+          "$ref": "#/definitions/ResourceHandle"
+        },
+        "cpInstanceId": {
+          "title": "Cpinstanceid",
+          "description": "Identifier of the external CP of the VNF connected to this link port. There shall be at most one link port associated with any external connection point instance.",
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "NsVirtualLinkInfo": {
+      "description": "Information on the VL(s) of the NS instance.",
+      "required": [
+        "id",
+        "nsVirtualLinkDescId",
+        "nsVirtualLinkProfileId",
+        "resourceHandle"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the VL instance.",
+          "type": "string"
+        },
+        "nsVirtualLinkDescId": {
+          "title": "Nsvirtuallinkdescid",
+          "description": "Identifier of the VLD in the NSD.",
+          "type": "string"
+        },
+        "nsVirtualLinkProfileId": {
+          "title": "Nsvirtuallinkprofileid",
+          "description": "Identifier of the VL profile in the NSD.",
+          "type": "string"
+        },
+        "resourceHandle": {
+          "description": "Identifier(s) of the virtualised network resource(s) realizing the VL instance",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResourceHandle"
+          }
+        },
+        "linkPort": {
+          "description": "Link ports of this VL.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NsLinkPortInfo"
+          }
+        }
+      }
+    },
+    "NfpInfo": {
+      "description": "Information on the NFP instances.",
+      "required": [
+        "id",
+        "description",
+        "nscpHandle",
+        "nfpRule",
+        "nfpState"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this NFP instance.",
+          "type": "string"
+        },
+        "nfpdId": {
+          "title": "Nfpdid",
+          "description": "Identifier of the NFPD used to instantiate this NFPinstance.",
+          "type": "string"
+        },
+        "nfpName": {
+          "title": "Nfpname",
+          "description": "Human readable name for the NFP instance.",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "Human readable description for the NFP instance.",
+          "type": "string"
+        },
+        "nscpHandle": {
+          "description": "Identifier(s) of the CPs and/or SAPs which the NFP passes by",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NsCpHandle"
+          }
+        },
+        "totalCp": {
+          "title": "Totalcp",
+          "description": "Total number of CP and SAP instances in this NFPinstance.",
+          "type": "string"
+        },
+        "nfpRule": {
+          "$ref": "#/definitions/NfpRule"
+        },
+        "nfpState": {
+          "title": "Nfpstate",
+          "description": "The state of the NFP instance.",
+          "type": "string",
+          "enum": [
+            "ENABLED",
+            "DISABLED"
+          ]
+        }
+      }
+    },
+    "VnffgInfo": {
+      "description": "VNF Forward Graph Information.",
+      "required": [
+        "id",
+        "vnffgdId",
+        "vnfInstanceId",
+        "nsVirtualLinkInfoId",
+        "nsCpHandle",
+        "nfpInfo"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this VNFFG instance.",
+          "type": "string"
+        },
+        "vnffgdId": {
+          "title": "Vnffgdid",
+          "description": "Identifier of the VNFFGD in the NSD.",
+          "type": "string"
+        },
+        "vnfInstanceId": {
+          "description": "Identifier(s) of the constituent VNF instance(s) of thisVNFFG instance.",
+          "type": "array",
+          "items": {
+            "description": "ID of vnf instance",
+            "type": "string"
+          }
+        },
+        "pnfInfoId": {
+          "description": "Identifier(s) of the constituent PNF instance(s) of thisVNFFG instance",
+          "type": "array",
+          "items": {
+            "description": "ID of pnf info",
+            "type": "string"
+          }
+        },
+        "nsVirtualLinkInfoId": {
+          "description": "Identifier(s) of the constituent VL instance(s) ofthisVNFFG instance.",
+          "type": "array",
+          "items": {
+            "description": "ID of ns virtual link info",
+            "type": "string"
+          }
+        },
+        "nsCpHandle": {
+          "description": "Identifiers of the CP instances attached to the constituent VNFs and PNFs or the SAP instances of the VNFFG.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NsCpHandle"
+          }
+        },
+        "nfpInfo": {
+          "description": "Information on the NFP instances.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NfpInfo"
+          }
+        }
+      }
+    },
+    "SapInfo": {
+      "description": "Create data concerning the SAPs.",
+      "required": [
+        "id",
+        "sapdId",
+        "sapName",
+        "description"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the SAP instance.",
+          "type": "string"
+        },
+        "sapdId": {
+          "title": "Sapdid",
+          "description": "Reference to the SAPD for this SAP.",
+          "type": "string"
+        },
+        "sapName": {
+          "title": "Sapname",
+          "description": "Human readable name for the SAP.",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "description": "Human readable description for the SAP. ",
+          "type": "string"
+        },
+        "sapProtocolInfo": {
+          "description": "Parameters for configuring the network protocols on the SAP.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CpProtocolInfo"
+          }
+        }
+      }
+    },
+    "NsScaleInfo": {
+      "description": "Status of each NS scaling aspect declared in the applicable DF.",
+      "required": [
+        "nsScalingAspectId",
+        "nsScaleLevelId"
+      ],
+      "type": "object",
+      "properties": {
+        "nsScalingAspectId": {
+          "title": "Nsscalingaspectid",
+          "description": "Identifier of the NS scaling aspect.",
+          "type": "string"
+        },
+        "nsScaleLevelId": {
+          "title": "Nsscalelevelid",
+          "description": "Identifier of the NS scale level.",
+          "type": "string"
+        }
+      }
+    },
+    "AffinityOrAntiAffinityRule": {
+      "description": "Specifies additional affinity or anti-affinity constraint for the VNF instances to be instantiated as part of the NS instantiation.",
+      "required": [
+        "vnfInstanceId",
+        "affinityOrAntiAffiinty",
+        "scope"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfdId": {
+          "description": "Identifier of the VNFD on which the VNF instance is based.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vnfProfileId": {
+          "description": "Identifier of (Reference to) a vnfProfile defined in the NSD which the existing VNF instance shall be matched with.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vnfInstanceId": {
+          "description": "Identifier of the existing VNF instance to be used in the NS.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "affinityOrAntiAffiinty": {
+          "title": "Affinityorantiaffiinty",
+          "description": "The type of the constraint.",
+          "type": "string",
+          "enum": [
+            "AFFINITY",
+            "ANTI_AFFINITY"
+          ]
+        },
+        "scope": {
+          "title": "Scope",
+          "description": "Specifies the scope of the rule where the placement constraint applies.",
+          "type": "string",
+          "enum": [
+            "NFVI_POP",
+            "ZONE",
+            "ZONE_GROUP",
+            "NFVI_NODE"
+          ]
+        }
+      }
+    },
+    "NsLink": {
+      "title": " links",
+      "description": "The links of the NS instance.",
+      "required": [
+        "self"
+      ],
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/definitions/Link"
+        },
+        "nestedNsInstances": {
+          "description": "Links to the nested NS instances of the present NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "instantiate": {
+          "$ref": "#/definitions/Link"
+        },
+        "terminate": {
+          "$ref": "#/definitions/Link"
+        },
+        "update": {
+          "$ref": "#/definitions/Link"
+        },
+        "scale": {
+          "$ref": "#/definitions/Link"
+        },
+        "heal": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "NsInstance": {
+      "description": "NS instances",
+      "required": [
+        "id",
+        "nsInstanceName",
+        "nsInstanceDescription",
+        "nsdId",
+        "nsdInfoId",
+        "nsState",
+        "_links"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the NS instance.",
+          "type": "string"
+        },
+        "nsInstanceName": {
+          "title": "Nsinstancename",
+          "description": "Human readable name of the NS instance.",
+          "type": "string"
+        },
+        "nsInstanceDescription": {
+          "title": "Nsinstancedescription",
+          "description": "Human readable description of the NS instance.",
+          "type": "string"
+        },
+        "nsdId": {
+          "title": "Nsdid",
+          "description": "Identifier of the NSD on which the NS instance is based.",
+          "type": "string"
+        },
+        "nsdInfoId": {
+          "title": "Nsdinfoid",
+          "description": "Identifier of the NSD information object on which the NS instance is based.",
+          "type": "string"
+        },
+        "flavourId": {
+          "title": "Flavourid",
+          "description": "Identifier of the NS deployment flavour applied to the NS instance.",
+          "type": "string"
+        },
+        "vnfInstance": {
+          "description": "Information on constituent VNF(s) of the NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfInstance"
+          }
+        },
+        "pnfInfo": {
+          "description": "Information on constituent PNF(s) of the NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PnfInfo"
+          }
+        },
+        "virtualLinkInfo": {
+          "description": "Information on the VL(s) of the NS instance.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NsVirtualLinkInfo"
+          }
+        },
+        "vnffgInfo": {
+          "description": "VNF Forward Graph Information.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnffgInfo"
+          }
+        },
+        "sapInfo": {
+          "description": "Create data concerning the SAPs.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SapInfo"
+          }
+        },
+        "nestedNsInstanceId": {
+          "description": "Identifier of the nested NS(s) of the NS instance.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nsState": {
+          "title": "Nsstate",
+          "description": "The state of the NS instance.",
+          "type": "string",
+          "enum": [
+            "NOT_INSTANTIATED",
+            "INSTANTIATED"
+          ]
+        },
+        "nsScaleStatus": {
+          "description": "Status of each NS scaling aspect declared in the applicable DF.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NsScaleInfo"
+          }
+        },
+        "additionalAffinityOrAntiAffinityRule": {
+          "description": "Specifies additional affinity or anti-affinity constraint for the VNF instances to be instantiated as part of the NS instantiation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffinityOrAntiAffinityRule"
+          }
+        },
+        "_links": {
+          "$ref": "#/definitions/NsLink"
+        }
+      }
+    },
+    "CreateNsRequest": {
+      "required": [
+        "nsdId",
+        "nsName",
+        "nsDescription"
+      ],
+      "type": "object",
+      "properties": {
+        "nsdId": {
+          "title": "Nsdid",
+          "description": "Identifier of the NSD that defines the NS instance to be created.",
+          "type": "string"
+        },
+        "nsName": {
+          "title": "Nsname",
+          "description": "Name of NS",
+          "type": "string"
+        },
+        "nsDescription": {
+          "title": "Nsdescription",
+          "description": "Description of NS",
+          "type": "string"
+        }
+      }
+    },
+    "ActionVm": {
+      "title": "Actionvminfo",
+      "description": "VM info of action",
+      "type": "object",
+      "properties": {
+        "vmid": {
+          "title": "Vmid",
+          "description": "ID of VM",
+          "type": "string"
+        },
+        "vduid": {
+          "title": "Vduid",
+          "description": "ID of vdu",
+          "type": "string"
+        },
+        "vmname": {
+          "title": "Vmname",
+          "description": "Name of VM",
+          "type": "string"
+        }
+      }
+    },
+    "HealNsAdditionalParams": {
+      "description": "KeyValue Pairs",
+      "type": "object",
+      "properties": {
+        "action": {
+          "title": "Action",
+          "description": "Action of NS heal",
+          "type": "string"
+        },
+        "actionvminfo": {
+          "$ref": "#/definitions/ActionVm"
+        }
+      }
+    },
+    "HealVnfData": {
+      "description": "Data of heal VNF",
+      "required": [
+        "vnfInstanceId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Identifies the VNF instance,",
+          "type": "string"
+        },
+        "cause": {
+          "title": "Cause",
+          "description": "Indicates the reason why a healing procedure is required",
+          "type": "string"
+        },
+        "additionalParams": {
+          "title": "Additionalparams",
+          "description": "Additional parameters passed by the NFVO as input to the healing process",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/HealNsAdditionalParams"
+          }
+        }
+      }
+    },
+    "HealNsData": {
+      "title": "Healnsdata",
+      "description": "Provides the information needed to heal an NS",
+      "required": [
+        "degreeHealing"
+      ],
+      "type": "object",
+      "properties": {
+        "degreeHealing": {
+          "title": "Degreehealing",
+          "description": "degree of healing",
+          "type": "string",
+          "enum": [
+            "HEAL_RESTORE",
+            "HEAL_QOS",
+            "HEAL_RESET",
+            "PARTIAL_HEALING"
+          ]
+        },
+        "actionsHealing": {
+          "description": "A list of actions",
+          "type": "array",
+          "items": {
+            "description": "One action",
+            "type": "string"
+          }
+        },
+        "healScript": {
+          "title": "Healscript",
+          "description": "script of NS heal",
+          "type": "string"
+        },
+        "additionalParamsforNs": {
+          "title": "Additionalparamsforns",
+          "description": "Addition params of NS heal",
+          "type": "string"
+        }
+      }
+    },
+    "HealNsReq": {
+      "type": "object",
+      "properties": {
+        "healVnfData": {
+          "description": "Data of heal VNF",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HealVnfData"
+          }
+        },
+        "healNsData": {
+          "$ref": "#/definitions/HealNsData"
+        }
+      }
+    },
+    "ProblemDetails": {
+      "required": [
+        "status",
+        "detail"
+      ],
+      "type": "object",
+      "properties": {
+        "type": {
+          "title": "Type",
+          "description": "A URI reference according to IETF RFC 3986 [5] that identifies the problem type.",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "description": "A short, human-readable summary of the problem type.",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "description": "The HTTP status code for this occurrence of the problem.",
+          "type": "integer"
+        },
+        "detail": {
+          "title": "Detail",
+          "description": "A human-readable explanation specific to this occurrence of the problem.",
+          "type": "string"
+        },
+        "instance": {
+          "title": "Instance",
+          "description": "A URI reference that identifies the specific occurrence of the problem.",
+          "type": "string"
+        },
+        "additional_details": {
+          "description": "Any number of additional attributes, as defined in a specification or by an implementation.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "civicAddressElement": {
+      "description": "Zero or more elements comprising the civicaddress.",
+      "required": [
+        "caType",
+        "caValue"
+      ],
+      "type": "object",
+      "properties": {
+        "caType": {
+          "title": "Catype",
+          "description": "Describe the content type of caValue.",
+          "type": "string"
+        },
+        "caValue": {
+          "title": "Cavalue",
+          "description": "Content of civic address element corresponding to theaType.",
+          "type": "string"
+        }
+      }
+    },
+    "LocationConstraints": {
+      "title": "Locationconstraints",
+      "description": "Defines the location constraints for theVNF instance to be created based on theVNF profile.",
+      "required": [
+        "countryCode"
+      ],
+      "type": "object",
+      "properties": {
+        "countryCode": {
+          "title": "Countrycode",
+          "description": "The two-letter ISO 3166 [29] country code in capitalletters.",
+          "type": "string"
+        },
+        "civicAddressElement": {
+          "description": "Zero or more elements comprising the civicaddress.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/civicAddressElement"
+          }
+        }
+      }
+    },
+    "VnfLocationConstraint": {
+      "description": "Defines the location constraints for the VNF to be instantiated as part of the NS instantiation.",
+      "type": "object",
+      "properties": {
+        "vnfProfileId": {
+          "title": "Vnfprofileid",
+          "description": "ID of VNF profile",
+          "type": "string"
+        },
+        "locationConstraints": {
+          "$ref": "#/definitions/LocationConstraints"
+        }
+      }
+    },
+    "ParamsForVnf": {
+      "description": "Allows the OSS/BSS to provide additional parameter(s)per VNF instance",
+      "required": [
+        "vnfProfileId"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfProfileId": {
+          "title": "Vnfprofileid",
+          "description": "Identifier of (reference to) a vnfProfile to which theadditional parameters apply",
+          "type": "string"
+        },
+        "additionalParams": {
+          "title": "Additionalparams",
+          "description": "Content of civic address element corresponding to thecaType",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "InstantNsReq": {
+      "required": [
+        "nsFlavourId"
+      ],
+      "type": "object",
+      "properties": {
+        "nsFlavourId": {
+          "title": "Nsflavourid",
+          "description": "Identifier of the NS deployment flavour to beinstantiated.",
+          "type": "string"
+        },
+        "sapData": {
+          "description": "Create data concerning the SAPs of this NS",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SapData"
+          }
+        },
+        "addpnfData": {
+          "description": "Information on the PNF(s) that are part of this NS.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AddPnfData"
+          }
+        },
+        "vnfInstanceData": {
+          "description": "Specify an existing VNF instance to be used in the NS.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfInstanceData"
+          }
+        },
+        "nestedNsInstanceId": {
+          "description": "Specify an existing NS instance to be used as a nested NS within the NS",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "localizationLanguage": {
+          "description": "Defines the location constraints for the VNF to be instantiated as part of the NS instantiation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfLocationConstraint"
+          }
+        },
+        "additionalParamForNs": {
+          "title": "Additionalparamforns",
+          "description": "Allows the OSS/BSS to provide additional parameters at the NS level ",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "additionalParamsForVnf": {
+          "description": "Allows the OSS/BSS to provide additional parameter(s)per VNF instance",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ParamsForVnf"
+          }
+        },
+        "startTime": {
+          "title": "Starttime",
+          "description": "Timestamp indicating the earliest time to instantiatethe NS.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "nsInstantiationLevelId": {
+          "title": "Nsinstantiationlevelid",
+          "description": "Identifies one of the NS instantiation levelsdeclared in the DF applicable to this NS instance",
+          "type": "string"
+        },
+        "additionalAffinityOrAntiAffiniityRule": {
+          "description": "Specifies additional affinity or anti-affinity constraint for the VNF instances to be instantiated as part of the NS instantiation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffinityOrAntiAffinityRule"
+          }
+        }
+      }
+    },
+    "ScaleNsByStepsData": {
+      "title": "Scalensbystepsdata",
+      "description": "The information used to scale an NS instance by one or more scaling steps",
+      "required": [
+        "scalingDirection",
+        "aspectId"
+      ],
+      "type": "object",
+      "properties": {
+        "scalingDirection": {
+          "title": "Scalingdirection",
+          "description": "The scaling direction",
+          "type": "string",
+          "enum": [
+            "SCALE_IN",
+            "SCALE_OUT"
+          ]
+        },
+        "aspectId": {
+          "title": "Aspectid",
+          "description": "The aspect of the NS that is requested to be scaled, as declared in the NSD. ",
+          "type": "string"
+        },
+        "numberOfSteps": {
+          "title": "Numberofsteps",
+          "description": "The number of scaling steps to be performed. Defaults to 1. ",
+          "type": "string"
+        }
+      }
+    },
+    "ScaleNsToLevelData": {
+      "title": "Scalenstoleveldata",
+      "description": "The information used to scale an NS instance to a target size. ",
+      "type": "object",
+      "properties": {
+        "nsInstantiationLevel": {
+          "title": "Nsinstantiationlevel",
+          "description": "Identifier of the target NS instantiation level of the current DF to which the NS instance is requested to be scaled.",
+          "type": "string"
+        },
+        "nsScaleInfo": {
+          "description": "For each NS scaling aspect of the current DF",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NsScaleInfo"
+          }
+        }
+      }
+    },
+    "ScaleNsData": {
+      "description": "Scale NS data",
+      "type": "object",
+      "properties": {
+        "vnfInstanceToBeAdded": {
+          "description": "An existing VNF instance to be added to the NS instance as part of the scaling operation. ",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfInstanceData"
+          }
+        },
+        "vnfInstanceToBeRemoved": {
+          "description": "The VNF instance to be removed from the NS instance as part of the scaling operation",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scaleNsByStepsData": {
+          "$ref": "#/definitions/ScaleNsByStepsData"
+        },
+        "scaleNsToLevelData": {
+          "$ref": "#/definitions/ScaleNsToLevelData"
+        },
+        "additionalParamsForNs": {
+          "title": "Additionalparamsforns",
+          "description": "Allows the OSS/BSS to provide additional parameter(s) at the NS level necessary for the NS scaling ",
+          "type": "object",
+          "additionalProperties": {
+            "description": "KeyValue Pairs",
+            "type": "string"
+          }
+        },
+        "additionalParamsForVnf": {
+          "description": "Allows the OSS/BSS to provide additional parameter(s) per VNF instance",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ParamsForVnf"
+          }
+        },
+        "locationConstraints": {
+          "description": "The location constraints for the VNF to be instantiated as part of the NS scaling.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VnfLocationConstraint"
+          }
+        }
+      }
+    },
+    "ManualScaleNsReq": {
+      "description": "NS Scale",
+      "required": [
+        "scaleType",
+        "scaleNsData"
+      ],
+      "type": "object",
+      "properties": {
+        "scaleType": {
+          "title": "Scaletype",
+          "description": "Type of NS Scale",
+          "type": "string"
+        },
+        "scaleNsData": {
+          "description": "Scale NS data",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScaleNsData"
+          }
+        }
+      }
+    },
+    "TerminateNsReq": {
+      "type": "object",
+      "properties": {
+        "terminationTime": {
+          "title": "Terminationtime",
+          "description": "Timestamp indicating the end time of the NS.",
+          "type": "string"
+        }
+      }
+    },
+    "ChangedInfo": {
+      "title": "Changedinfo",
+      "description": "Links to resources related to this resource.",
+      "type": "object",
+      "properties": {
+        "changedVnfInfo": {
+          "$ref": "#/definitions/ModifyVnfInfoData"
+        },
+        "changedExtConnectivity": {
+          "$ref": "#/definitions/ExtVirtualLinkInfo"
+        }
+      }
+    },
+    "AffectedVnfs": {
+      "description": "Information about VNFC instances that were affected during the lifecycle operation.",
+      "required": [
+        "vnfInstanceId",
+        "vnfdId",
+        "vnfProfileId",
+        "vnfName",
+        "changeType",
+        "changeResult"
+      ],
+      "type": "object",
+      "properties": {
+        "vnfInstanceId": {
+          "title": "Vnfinstanceid",
+          "description": "Identifier of the VNF instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "vnfdId": {
+          "title": "Vnfdid",
+          "description": "Identifier of the VNFD of the VNF Instance..",
+          "type": "string",
+          "format": "uuid"
+        },
+        "vnfProfileId": {
+          "title": "Vnfprofileid",
+          "description": "Identifier of the VNF profile of the NSD.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "vnfName": {
+          "title": "Vnfname",
+          "description": "Name of the VNF Instance.",
+          "type": "string"
+        },
+        "changeType": {
+          "title": "Changetype",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "ADD",
+            "REMOVE",
+            "INSTANTIATE",
+            "TERMINATE",
+            "SCALE",
+            "CHANGE_FLAVOUR",
+            "HEAL",
+            "OPERATE",
+            "MODIFY_INFORMATION",
+            "CHANGE_EXTERNAL_VNF_CONNECTIVITY"
+          ]
+        },
+        "changeResult": {
+          "title": "Changeresult",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "COMPLETED",
+            "ROLLED_BACK",
+            "FAILED"
+          ]
+        },
+        "changedInfo": {
+          "$ref": "#/definitions/ChangedInfo"
+        }
+      }
+    },
+    "AffectedPnfs": {
+      "description": "Information about the PNF instances that were affected during the lifecycle operation.",
+      "required": [
+        "pnfId",
+        "pnfdId",
+        "pnfProfileId",
+        "pnfName",
+        "cpInstanceId",
+        "changeType",
+        "changeResult"
+      ],
+      "type": "object",
+      "properties": {
+        "pnfId": {
+          "title": "Pnfid",
+          "description": "Identifier of the affected PNF. This identifier is allocated by the OSS/BSS. ",
+          "type": "string",
+          "format": "uuid"
+        },
+        "pnfdId": {
+          "title": "Pnfdid",
+          "description": "Identifier of the PNFD on which the PNF is based.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "pnfProfileId": {
+          "title": "Pnfprofileid",
+          "description": "Identifier of the VNF profile of the NSD.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "pnfName": {
+          "title": "Pnfname",
+          "description": "Name of the PNF.",
+          "type": "string"
+        },
+        "cpInstanceId": {
+          "title": "Cpinstanceid",
+          "description": "Identifier of the NS profile of the NSD.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "changeType": {
+          "title": "Changetype",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "ADD",
+            "REMOVE",
+            "MODIFY"
+          ]
+        },
+        "changeResult": {
+          "title": "Changeresult",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "COMPLETED",
+            "ROLLED_BACK",
+            "FAILED"
+          ]
+        }
+      }
+    },
+    "AffectedVLs": {
+      "description": "Information about the VL instances that were affected during the lifecycle operation",
+      "required": [
+        "id",
+        "virtualLinkDescId",
+        "changeType",
+        "changeResult"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of the VL Instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "virtualLinkDescId": {
+          "title": "Virtuallinkdescid",
+          "description": "Identifier of the VLD in the NSD for this VL.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "changeType": {
+          "title": "Changetype",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "ADD",
+            "DELETE",
+            "MODIFY",
+            "ADD_LINK_PORT",
+            "REMOVE_LINK_PORT"
+          ]
+        },
+        "changeResult": {
+          "title": "Changeresult",
+          "description": "Signals the result of change identified by the 'changeType' attribute.",
+          "type": "string",
+          "enum": [
+            "COMPLETED",
+            "ROLLED_BACK",
+            "FAILED"
+          ]
+        }
+      }
+    },
+    "AffectedVnffgs": {
+      "description": "Information about the VNFFG instances that were affected during the lifecycle operation.",
+      "required": [
+        "vnffgInstanceId",
+        "vnffgdId",
+        "changeType",
+        "changeResult"
+      ],
+      "type": "object",
+      "properties": {
+        "vnffgInstanceId": {
+          "title": "Vnffginstanceid",
+          "description": "Identifier of the VNFFG instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "vnffgdId": {
+          "title": "Vnffgdid",
+          "description": "Identifier of the VNFFGD of the VNFFG instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "changeType": {
+          "title": "Changetype",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "ADD",
+            "REMOVE",
+            "MODIFY"
+          ]
+        },
+        "changeResult": {
+          "title": "Changeresult",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "COMPLETED",
+            "ROLLED_BACK",
+            "FAILED"
+          ]
+        }
+      }
+    },
+    "AffectedNss": {
+      "description": "Information about the nested NS instances that were affected during the lifecycle operation.",
+      "required": [
+        "nsInstanceId",
+        "nsdId",
+        "changeType",
+        "changeResult"
+      ],
+      "type": "object",
+      "properties": {
+        "nsInstanceId": {
+          "title": "Nsinstanceid",
+          "description": "Identifier of the nested NS instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "nsdId": {
+          "title": "Nsdid",
+          "description": "Identifier of the NSD of the nested NS instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "changeType": {
+          "title": "Changetype",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "ADD",
+            "REMOVE",
+            "TERMINATE",
+            "SCALE",
+            "UPDATE",
+            "HEAL"
+          ]
+        },
+        "changeResult": {
+          "title": "Changeresult",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "COMPLETED",
+            "ROLLED_BACK",
+            "FAILED",
+            "PARTIALLY_COMPLETED"
+          ]
+        }
+      }
+    },
+    "AffectedSaps": {
+      "description": "Information about the SAP instances that were affected during the lifecycle operation.",
+      "required": [
+        "sapInstanceId",
+        "sapdId",
+        "sapName",
+        "changeType",
+        "changeResult"
+      ],
+      "type": "object",
+      "properties": {
+        "sapInstanceId": {
+          "title": "Sapinstanceid",
+          "description": "Identifier of the SAP instance.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "sapdId": {
+          "title": "Sapdid",
+          "description": "Identifier of the SAPD for this SAP.",
+          "type": "string",
+          "format": "uuid"
+        },
+        "sapName": {
+          "title": "Sapname",
+          "description": "Human readable name for the SAP.",
+          "type": "string"
+        },
+        "changeType": {
+          "title": "Changetype",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "ADD",
+            "REMOVE",
+            "MODIFY"
+          ]
+        },
+        "changeResult": {
+          "title": "Changeresult",
+          "description": "Signals the type of change",
+          "type": "string",
+          "enum": [
+            "COMPLETED",
+            "ROLLED_BACK",
+            "FAILED"
+          ]
+        }
+      }
+    },
+    "ResourceChanges": {
+      "title": "Resourcechanges",
+      "description": "It contains information about the cumulative changes to virtualised resources that were performed so far by the LCM operation since its start, if applicable.",
+      "type": "object",
+      "properties": {
+        "affectedVnfs": {
+          "description": "Information about VNFC instances that were affected during the lifecycle operation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffectedVnfs"
+          }
+        },
+        "affectedPnfs": {
+          "description": "Information about the PNF instances that were affected during the lifecycle operation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffectedPnfs"
+          }
+        },
+        "affectedVls": {
+          "description": "Information about the VL instances that were affected during the lifecycle operation",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffectedVLs"
+          }
+        },
+        "affectedVnffgs": {
+          "description": "Information about the VNFFG instances that were affected during the lifecycle operation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffectedVnffgs"
+          }
+        },
+        "affectedNss": {
+          "description": "Information about the nested NS instances that were affected during the lifecycle operation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffectedNss"
+          }
+        },
+        "affectedSaps": {
+          "description": "Information about the SAP instances that were affected during the lifecycle operation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AffectedSaps"
+          }
+        }
+      }
+    },
+    "LcmOpLink": {
+      "title": " links",
+      "description": "Links to resources related to this resource.",
+      "required": [
+        "self",
+        "nsInstance"
+      ],
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/definitions/Link"
+        },
+        "nsInstance": {
+          "$ref": "#/definitions/Link"
+        },
+        "cancel": {
+          "$ref": "#/definitions/Link"
+        },
+        "retry": {
+          "$ref": "#/definitions/Link"
+        },
+        "rollback": {
+          "$ref": "#/definitions/Link"
+        },
+        "fail": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "NSLCMOpOcc": {
+      "required": [
+        "id",
+        "operationState",
+        "stateEnteredTime",
+        "startTime",
+        "nsInstanceId",
+        "operation",
+        "operationParams",
+        "isCancelPending",
+        "_links"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this NS lifecycle management operation occurrence,",
+          "type": "string",
+          "maxLength": 255
+        },
+        "operationState": {
+          "title": "Operationstate",
+          "description": "The state of the VNF LCM operation occurrence. ",
+          "type": "string",
+          "enum": [
+            "STARTING",
+            "PROCESSING",
+            "COMPLETED",
+            "FAILED_TEMP",
+            "FAILED",
+            "ROLLING_BACK",
+            "ROLLED_BACK"
+          ]
+        },
+        "stateEnteredTime": {
+          "title": "Stateenteredtime",
+          "description": "Date-time when the current state was entered.",
+          "type": "string",
+          "maxLength": 50
+        },
+        "startTime": {
+          "title": "Starttime",
+          "description": "Date-time of the start of the operation.",
+          "type": "string",
+          "maxLength": 50
+        },
+        "nsInstanceId": {
+          "title": "Nsinstanceid",
+          "description": "Identifier of the ns instance to which the operation applies",
+          "type": "string",
+          "format": "uuid"
+        },
+        "operation": {
+          "title": "Operation",
+          "description": "The lifecycle management operation",
+          "type": "string",
+          "enum": [
+            "INSTANTIATE",
+            "SCALE",
+            "TERMINATE",
+            "HEAL",
+            "UPDATE"
+          ]
+        },
+        "isAutomaticInvocation": {
+          "title": "Isautomaticinvocation",
+          "description": "Set to true if this NS LCM operation occurrence has been automatically triggered by the NFVO.",
+          "type": "boolean",
+          "default": false
+        },
+        "operationParams": {
+          "title": "Operationparams",
+          "description": "Input parameters of the LCM operation. This attribute shall be formatted according to the request data type of the related LCM operation. The following mapping between operationType and the data type of this attribute shall apply: 1. INSTANTIATE: InstantiateVnfRequest 2. SCALE: ScaleVnfRequest 3. CHANGE_FLAVOUR: ChangeVnfFlavourRequest4. HEAL: HealVnfRequest 5. TERMINATE: TerminateVnfRequest ",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "isCancelPending": {
+          "title": "Iscancelpending",
+          "description": "If the NS LCM operation occurrence is in 'STARTING' or 'PROCESSING' or 'ROLLING_BACK' state and the operation is being cancelled, this attribute shall be set to True. Otherwise, it shall be set to False.",
+          "type": "boolean"
+        },
+        "cancelMode": {
+          "title": "Cancelmode",
+          "description": "The mode of an ongoing cancellation. Shall be present when isCancelPending=true, and shall be None otherwise.",
+          "type": "string"
+        },
+        "error": {
+          "$ref": "#/definitions/ProblemDetails"
+        },
+        "resourceChanges": {
+          "$ref": "#/definitions/ResourceChanges"
+        },
+        "_links": {
+          "$ref": "#/definitions/LcmOpLink"
+        }
+      }
+    },
+    "NsInstanceSubscriptionFilter": {
+      "title": "Nsinstancesubscriptionfilter",
+      "description": "Filter criteria to select NS instances about which to notify.",
+      "type": "object",
+      "properties": {
+        "nsdIds": {
+          "description": "If present, match NS instances that were created based on a NSD identified by one of the nsdId values listed in this attribute.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "vnfdIds": {
+          "description": "If present, match NS instances that contain VNF instances that were created based on identified by one of the vnfdId values listed in this attribute.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "pnfdIds": {
+          "description": "If present, match NS instances that contain PNFs that are represented by a PNFD identified by one of the pnfdId values listed in this attribute",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "nsInstanceIds": {
+          "description": "If present, match NS instances with an instance identifier listed in this attribute",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "nsInstanceNames": {
+          "description": "If present, match NS instances with a NS Instance Name listed in this attribute.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 255
+          }
+        }
+      }
+    },
+    "LifeCycleChangeNotificationsFilter": {
+      "title": "Filter",
+      "description": "Filter settings for this subscription, to define the of all notifications this subscription relates to A particular notification is sent to the subscriber if the filter matches, or if there is no filter.",
+      "type": "object",
+      "properties": {
+        "nsInstanceSubscriptionFilter": {
+          "$ref": "#/definitions/NsInstanceSubscriptionFilter"
+        },
+        "notificationTypes": {
+          "description": "Match particular notification types",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "NsLcmOperationOccurrenceNotification",
+              "NsIdentifierCreationNotification",
+              "NsIdentifierDeletionNotification",
+              "NsChangeNotification"
+            ]
+          }
+        },
+        "operationTypes": {
+          "description": "Match particular NS lifecycle operation types for the notification of type NsLcmOperationOccurrenceNotification.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "INSTANTIATE",
+              "SCALE",
+              "TERMINATE",
+              "HEAL",
+              "UPDATE"
+            ]
+          }
+        },
+        "operationStates": {
+          "description": "Match particular LCM operation state values as reported in notifications of type NsLcmOperationOccurrenceNotification.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "STARTING",
+              "PROCESSING",
+              "COMPLETED",
+              "FAILED_TEMP",
+              "FAILED",
+              "ROLLING_BACK",
+              "ROLLED_BACK"
+            ]
+          }
+        },
+        "nsComponentTypes": {
+          "description": "Match particular NS component types for the notification of type NsChangeNotification. ",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "VNF",
+              "PNF",
+              "NS"
+            ]
+          }
+        },
+        "lcmOpNameImpactingNsComponent": {
+          "description": "Match particular LCM operation names for the notification of type NsChangeNotification. ",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "VNF_INSTANTIATE",
+              "VNF_SCALE",
+              "VNF_SCALE_TO_LEVEL",
+              "VNF_CHANGE_FLAVOUR",
+              "VNF_TERMINATE",
+              "VNF_HEAL",
+              "VNF_OPERATE",
+              "VNF_CHANGE_EXT_CONN",
+              "VNF_MODIFY_INFO",
+              "NS_INSTANTIATE",
+              "NS_SCALE",
+              "NS_UPDATE",
+              "NS_TERMINATE",
+              "NS_HEAL"
+            ]
+          }
+        },
+        "lcmOpOccStatusImpactingNsComponent": {
+          "description": "Match particular LCM operation status values as reported in notifications of type NsChangeNotification.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "START",
+              "COMPLETED ",
+              "PARTIALLY_COMPLETED",
+              "FAILED",
+              "ROLLED_BACK"
+            ]
+          }
+        }
+      }
+    },
+    "LccnSubscriptionLink": {
+      "title": " links",
+      "description": "Links to resources related to this resource.",
+      "required": [
+        "self"
+      ],
+      "type": "object",
+      "properties": {
+        "self": {
+          "$ref": "#/definitions/Link"
+        }
+      }
+    },
+    "LccnSubscription": {
+      "required": [
+        "id",
+        "callbackUri",
+        "_links"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "description": "Identifier of this subscription resource.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "callbackUri": {
+          "title": "Callbackuri",
+          "description": "The URI of the endpoint to send the notification to.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "filter": {
+          "$ref": "#/definitions/LifeCycleChangeNotificationsFilter"
+        },
+        "_links": {
+          "$ref": "#/definitions/LccnSubscriptionLink"
+        }
+      }
+    },
+    "BasicAuth": {
+      "title": "Paramsbasic",
+      "description": "Parameters for authentication/authorization using BASIC.",
+      "type": "object",
+      "properties": {
+        "userName": {
+          "title": "Username",
+          "description": "Username to be used in HTTP Basic authentication.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "password": {
+          "title": "Password",
+          "description": "Password to be used in HTTP Basic authentication.",
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "OAuthCredentials": {
+      "title": "Paramsoauth2clientcredentials",
+      "description": "Parameters for authentication/authorization using OAUTH2_CLIENT_CREDENTIALS.",
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "title": "Clientid",
+          "description": "Client identifier to be used in the access token request of the OAuth 2.0 client credentials grant type.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "clientPassword": {
+          "title": "Clientpassword",
+          "description": "Client password to be used in the access token request of the OAuth 2.0 client credentials grant type.",
+          "type": "string",
+          "maxLength": 255
+        },
+        "tokenEndpoint": {
+          "title": "Tokenendpoint",
+          "description": "The token endpoint from which the access token can be obtained.",
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "SubscriptionAuthentication": {
+      "title": "Authentication",
+      "description": "Authentication parameters to conFigure the use of Authorization when sending notifications corresponding to this subscription, as defined in clause 4.5.3 This attribute shall only be present if the subscriber requires authorization of notifications.",
+      "required": [
+        "authType"
+      ],
+      "type": "object",
+      "properties": {
+        "authType": {
+          "description": "Defines the types of Authentication / Authorization which the API consumer is willing to accept when receiving a notification.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "BASIC",
+              "OAUTH2_CLIENT_CREDENTIALS",
+              "TLS_CERT"
+            ]
+          }
+        },
+        "paramsBasic": {
+          "$ref": "#/definitions/BasicAuth"
+        },
+        "paramsOauth2ClientCredentials": {
+          "$ref": "#/definitions/OAuthCredentials"
+        }
+      }
+    },
+    "LccnSubscriptionRequest": {
+      "required": [
+        "callbackUri"
+      ],
+      "type": "object",
+      "properties": {
+        "callbackUri": {
+          "title": "Callbackuri",
+          "description": "The URI of the endpoint to send the notification to.",
+          "type": "string"
+        },
+        "filter": {
+          "$ref": "#/definitions/LifeCycleChangeNotificationsFilter"
+        },
+        "authentication": {
+          "$ref": "#/definitions/SubscriptionAuthentication"
+        }
+      }
+    }
+  }
+}
