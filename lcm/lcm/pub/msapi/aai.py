@@ -40,6 +40,36 @@ def call_aai(resource, method, content=''):
                              additional_headers)
 
 
+def create_l_interfac_aai(vnf_id, interface_name, data):
+    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s" % vnf_id, interface_name
+    data = json.JSONEncoder().encode(data)
+    ret = call_aai(resource, "PUT", data)
+    if ret[0] != 0:
+        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
+        raise NSLCMException("l-interface creation exception in AAI")
+    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
+
+
+def query_l_interfac_aai(vnf_id, interface_name):
+    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s" % vnf_id, interface_name
+    ret = call_aai(resource, "GET")
+    if ret[0] != 0:
+        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
+        raise NSLCMException("Get l-interface info exception in AAI")
+    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1]
+
+
+def create_l3_interface_ipv4_address_list_aai(vnf_id, interface_name, ipv4_addr, data):
+    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s/" \
+               "l3-interface-ipv4-address-list/%s" % vnf_id, interface_name, ipv4_addr
+    data = json.JSONEncoder().encode(data)
+    ret = call_aai(resource, "PUT", data)
+    if ret[0] != 0:
+        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
+        raise NSLCMException("Ip address list creation exception in AAI")
+    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
+
+
 def create_customer_aai(global_customer_id, data):
     resource = "/business/customers/customer/%s" % global_customer_id
     data = json.JSONEncoder().encode(data)
