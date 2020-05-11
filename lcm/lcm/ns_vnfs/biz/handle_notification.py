@@ -27,7 +27,8 @@ from lcm.pub.database.models import (CPInstModel, NfInstModel, PortInstModel,
 from lcm.pub.exceptions import NSLCMException, RequestException
 from lcm.pub.msapi.aai import (create_network_aai, create_vserver_aai,
                                delete_network_aai, delete_vserver_aai,
-                               query_network_aai, query_vserver_aai)
+                               query_network_aai, query_vserver_aai, create_l_interface_aai,
+                               create_l3_interface_ipv4_address_list_aai)
 from lcm.pub.msapi.extsys import get_vim_by_id, split_vim_to_owner_region
 from lcm.pub.utils.values import ignore_case_get
 
@@ -45,6 +46,7 @@ class HandleVnfLcmOocNotification(object):
         self.affectedVls = ignore_case_get(data, 'affectedVirtualLinks')
         self.affectedCps = ignore_case_get(data, 'changedExtConnectivity')
         self.affectedVirtualStorage = ignore_case_get(data, 'affectedVirtualStorages')
+        self.vnfInstanceId = ignore_case_get(data, 'vnfInstanceId')
 
     def do_biz(self):
         try:
@@ -154,6 +156,18 @@ class HandleVnfLcmOocNotification(object):
 
     def update_Storage(self):
         pass
+
+    def update_ip_addr_in_aai(self):
+        logger.debug( "update_ip_in_aai::begin to report ip to aai." )
+        try:
+            for ip in self.affectedCps:
+                extLinkPorts = ignore_case_get(ip, 'extLinkPorts')
+                vnfInstanceId = self.vnfInstanceId
+                changeType = ignore_case_get(ip, 'changeType')
+                l_interfaces_name = extLinkPorts['resourceProviderId']
+                ip = extLinkPorts['ipAddress']
+                create_l_interface_aai(vnfInstanceId, l_interfaces_name)
+                create_l3_interface_ipv4_address_list_aai(vnfInstanceId, l_interfaces_name, ip)
 
     def update_network_in_aai(self):
         logger.debug("update_network_in_aai::begin to report network to aai.")
