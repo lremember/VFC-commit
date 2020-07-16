@@ -36,15 +36,10 @@ def get_packageinfo_by_vnfdid(vnfdid):
 
 
 def apply_grant_to_nfvo(data):
-    ret_count = 1
-    while ret_count > 0:
-        ret = req_by_msb('api/gvnfmdriver/v1/resource/grant', 'PUT', data)
-        if ret[0] != 0:
-            logger.error('Status code is %s, detail is %s.', ret[2], ret[1])
-            ret_count -= 1
-            raise NFLCMException('Nf instancing apply grant exception')
-        else:
-            break
+    ret = req_by_msb('api/gvnfmdriver/v1/resource/grant', 'PUT', data)
+    if ret[0] != 0:
+        logger.error('Status code is %s, detail is %s.', ret[2], ret[1])
+        raise NFLCMException('Nf instancing apply grant exception')
     return json.JSONDecoder().decode(ret[1])
 
 
@@ -115,7 +110,6 @@ def prepare_notification_data(nfinstid, jobid, changetype, operation):
             },
             'cpInstanceId': port.portid  # TODO: port.cpinstanceid is not initiated when create port resource.
         })
-
     for network_id, ext_link_ports in list(ext_connectivity_map.items()):
         networks = NetworkInstModel.objects.filter(networkid=network_id)
         net_name = networks[0].name if networks else network_id
@@ -128,6 +122,7 @@ def prepare_notification_data(nfinstid, jobid, changetype, operation):
         ext_connectivity.append({
             'id': network_id,
             'resourceHandle': network_resource,
+            'changeType': changetype,
             'extLinkPorts': ext_link_ports
         })
     logger.debug("ext_connectivity=%s", ext_connectivity)
@@ -159,7 +154,7 @@ def prepare_notification_data(nfinstid, jobid, changetype, operation):
         'affectedVnfcs': affected_vnfcs,
         'affectedVirtualLinks': affected_vls,
         'affectedVirtualStorages': affected_vss,
-        'changedExtConnectivity': ext_connectivity,  # TODO: will add in R4
+        'changedExtConnectivity': ext_connectivity,
         '_links': {
             'vnfInstance': {'href': '/api/vnflcm/v1/vnf_instances/%s' % nfinstid},
             # set 'subscription' link after filtering for subscribers

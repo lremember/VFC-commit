@@ -54,7 +54,6 @@ class NotifyLcm(object):
             self.update_Cp()
             self.update_Storage()
             if REPORT_TO_AAI:
-                # self.update_network_in_aai
                 self.update_network_in_aai()
             logger.debug("notify lcm end")
         except NSLCMException as e:
@@ -202,35 +201,6 @@ class NotifyLcm(object):
 
     def update_network_in_aai(self):
         logger.debug("update_network_in_aai::begin to report network to aai.")
-        try:
-            for vl in self.affectedVl:
-                vlInstanceId = ignore_case_get(vl, 'vlInstanceId')
-                # vldid = ignore_case_get(vl, 'vldid')
-                changeType = ignore_case_get(vl, 'changeType')
-                networkResource = ignore_case_get(vl, 'networkResource')
-                resourceType = ignore_case_get(networkResource, 'resourceType')
-                # resourceId = ignore_case_get(networkResource, 'resourceId')
-
-                if resourceType != 'network':
-                    logger.error('affectedVl struct error: resourceType not euqal network')
-                    raise NSLCMException("affectedVl struct error: resourceType not euqal network")
-
-                ownerId = self.get_vnfinstid(self.m_vnfInstanceId, self.vnfmid)
-
-                if changeType in ['added', 'modified']:
-                    self.create_network_and_subnet_in_aai(vlInstanceId, ownerId)
-                elif changeType == 'removed':
-                    self.delete_network_and_subnet_in_aai(vlInstanceId)
-                else:
-                    logger.error('affectedVl struct error: changeType not in {added,removed,modified}')
-        except NSLCMException as e:
-            logger.debug("Fail to create internal network to aai, detail message: %s" % e.args[0])
-        except:
-            logger.error(traceback.format_exc())
-
-    def update_ip_in_aai(self):
-        logger.debug("update_l3_interface_ipv4_address_list::begin to report network to aai.")
-
         try:
             for vl in self.affectedVl:
                 vlInstanceId = ignore_case_get(vl, 'vlInstanceId')

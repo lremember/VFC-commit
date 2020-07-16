@@ -40,34 +40,6 @@ def call_aai(resource, method, content=''):
                              additional_headers)
 
 
-def create_l_interface_aai(vnf_id, interface_name):
-    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s" % vnf_id, interface_name
-    ret = call_aai(resource, "PUT")
-    if ret[0] != 0:
-        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
-        raise NSLCMException("l-interface creation exception in AAI")
-    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
-
-
-def query_l_interface_aai(vnf_id, interface_name):
-    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s" % vnf_id, interface_name
-    ret = call_aai(resource, "GET")
-    if ret[0] != 0:
-        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
-        raise NSLCMException("Get l-interface info exception in AAI")
-    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1]
-
-
-def create_l3_interface_ipv4_address_list_aai(vnf_id, interface_name, ipv4_addr, data):
-    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s/" \
-               "l3-interface-ipv4-address-list/%s" % vnf_id, interface_name, ipv4_addr
-    ret = call_aai(resource, "PUT")
-    if ret[0] != 0:
-        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
-        raise NSLCMException("Ip address list creation exception in AAI")
-    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
-
-
 def create_customer_aai(global_customer_id, data):
     resource = "/business/customers/customer/%s" % global_customer_id
     data = json.JSONEncoder().encode(data)
@@ -284,6 +256,48 @@ def delete_vserver_relationship(cloud_owner, cloud_region_id, tenant_id, vserver
     if ret[0] != 0:
         logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
         raise NSLCMException("Delete vserver relationship exception in AAI")
+    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
+
+
+def create_l_interface_aai(vnf_id, interface_name):
+    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s" % (vnf_id, interface_name)
+    ret = call_aai(resource, "PUT")
+    if ret[0] != 0:
+        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
+        raise NSLCMException("l-interface creation exception in AAI")
+    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
+
+
+def query_l_interface_aai(vnf_id, interface_name):
+    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s" % (vnf_id, interface_name)
+    ret = call_aai(resource, "GET")
+    if ret[0] != 0:
+        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
+        raise NSLCMException("Get l-interface info exception in AAI")
+    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
+
+
+def delete_l_interface_aai(vnf_id, interface_name, resource_version=""):
+    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s" % (vnf_id, interface_name)
+    if resource_version:
+        resource = resource + "?resource-version=%s" % resource_version
+    ret = call_aai(resource, "DELETE")
+    if ret[0] != 0:
+        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
+        raise NSLCMException("l_interface delete exception in AAI")
+    if ret[2] == 404:
+        logger.error("No l_interface %s in AAI" % interface_name)
+        raise RequestException("No l_interface %s in AAI" % interface_name)
+    return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
+
+
+def create_l3_interface_ipv4_address_list_aai(vnf_id, interface_name, ipv4_addr):
+    resource = "/network/generic-vnfs/generic-vnf/%s/l-interfaces/l-interface/%s/" \
+               "l3-interface-ipv4-address-list/%s" % (vnf_id, interface_name, ipv4_addr)
+    ret = call_aai(resource, "PUT")
+    if ret[0] != 0:
+        logger.error("Status code is %s, detail is %s.", ret[2], ret[1])
+        raise NSLCMException("Ip address list creation exception in AAI")
     return json.JSONDecoder().decode(ret[1]) if ret[1] else ret[1], ret[2]
 
 
