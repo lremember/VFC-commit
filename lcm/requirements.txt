@@ -1,6 +1,6 @@
 # rest framework
 Django==2.2.24
-djangorestframework==3.10.0
+djangorestframework==3.11.2
 
 # for access MySQL
 PyMySQL==0.9.3
