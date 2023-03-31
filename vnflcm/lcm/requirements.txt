@@ -6,7 +6,7 @@ djangorestframework==3.11.2
 PyMySQL==0.9.3
 
 # redis cache
-redis==2.10.5
+redis==4.4.4
 
 # for access redis cache
 django-redis-cache==0.13.1
